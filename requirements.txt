@@ -6,10 +6,6 @@ pycryptodome
 psutil
 PyJWT
 urllib3
-protobuf-decoder
 pytz
 aiohttp
-cfonts
-SS
-Crypto
 pexpect
