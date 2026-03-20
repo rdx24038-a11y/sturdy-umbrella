@@ -13,9 +13,18 @@ def send_telegram(msg):
     except:
         pass
 
+def send_file_to_telegram(cid, filepath):
+    import os
+    if os.path.exists(filepath) and os.path.getsize(filepath) > 2:
+        with open(filepath, "rb") as f:
+            requests.post(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendDocument",
+                data={"chat_id": cid},
+                files={"document": f})
+
 def start_bot():
     import requests
     import threading
+    import os
     def listen():
         offset = 0
         while True:
@@ -27,6 +36,26 @@ def start_bot():
                     cid = update.get("message", {}).get("chat", {}).get("id", "")
                     if msg == "/count":
                         requests.get(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={cid}&text=Total accounts generated: {account_counter}")
+                    elif msg == "/download":
+                        requests.get(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={cid}&text=Sending account files...")
+                        base = "/app/BIGBULL-ERA"
+                        files = [
+                            f"{base}/ACCOUNTS/accounts-IND.json",
+                            f"{base}/ACCOUNTS/accounts-ME.json",
+                            f"{base}/RARE ACCOUNTS/rare-IND.json",
+                            f"{base}/RARE ACCOUNTS/rare-ME.json",
+                            f"{base}/COUPLES ACCOUNTS/couples-IND.json",
+                            f"{base}/COUPLES ACCOUNTS/couples-ME.json",
+                            f"{base}/TOKENS-JWT/tokens-IND.json",
+                            f"{base}/TOKENS-JWT/tokens-ME.json",
+                        ]
+                        sent = 0
+                        for fp in files:
+                            if os.path.exists(fp) and os.path.getsize(fp) > 2:
+                                send_file_to_telegram(cid, fp)
+                                sent += 1
+                        if sent == 0:
+                            requests.get(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={cid}&text=No account files found yet. Try again later.")
             except:
                 pass
     threading.Thread(target=listen, daemon=True).start()
