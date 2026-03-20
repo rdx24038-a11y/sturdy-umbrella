@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y tor proxychains4 && rm -rf /var/lib/apt
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN echo "bust=2" && pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
