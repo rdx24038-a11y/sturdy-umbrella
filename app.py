@@ -1279,8 +1279,8 @@ def main_menu():
 
 if __name__ == "__main__":
     try:
-        if install_requirements():
-            main_menu()
+        install_requirements()
+        main_menu()
     except KeyboardInterrupt:
         safe_exit()
     except Exception as e:
