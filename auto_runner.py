@@ -1,7 +1,7 @@
 import pexpect
 import time
 
-child = pexpect.spawn('python3 /storage/emulated/0/Project-032/goal/App.py', timeout=180)
+child = pexpect.spawn('python3 /app/app.py', timeout=180)
 child.logfile = open('output.log', 'wb')
 
 while True:
