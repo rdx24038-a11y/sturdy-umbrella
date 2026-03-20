@@ -7,9 +7,8 @@ WORKDIR /app
 COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
-
-RUN ls -la /app
+RUN pip install --no-cache-dir pexpect colorama
 
 RUN echo "socks5 127.0.0.1 9050" >> /etc/proxychains4.conf
 
-CMD tor & sleep 15 && proxychains4 python3 auto_runner.py
+CMD tor & sleep 15 && python3 auto_runner.py
