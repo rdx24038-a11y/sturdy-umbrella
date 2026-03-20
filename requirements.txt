@@ -11,4 +11,5 @@ pytz
 aiohttp
 cfonts
 SS
-Cryptopexpect
+Crypto
+pexpect
