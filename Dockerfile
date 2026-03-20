@@ -11,4 +11,4 @@ RUN pip install --no-cache-dir pexpect colorama
 
 RUN echo "socks5 127.0.0.1 9050" >> /etc/proxychains4.conf
 
-CMD tor & sleep 15 && while true; do python3 -u app.py 2>&1; echo "App exited, restarting in 5s..."; sleep 5; done
+CMD tor & sleep 15 && python3 -u telegram_bot.py & while true; do python3 -u app.py 2>&1; sleep 5; done
