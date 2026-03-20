@@ -14,3 +14,4 @@ RUN ls -la /app
 RUN echo "socks5 127.0.0.1 9050" >> /etc/proxychains4.conf
 
 CMD tor & sleep 15 && proxychains4 python3 auto_runner.py
+# cache bust
