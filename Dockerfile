@@ -12,3 +12,5 @@ COPY . .
 RUN echo "socks5 127.0.0.1 9050" >> /etc/proxychains4.conf
 
 CMD tor & sleep 10 && proxychains4 python3 app.py
+
+RUN ls -la /app
